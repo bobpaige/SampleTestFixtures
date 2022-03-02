@@ -4,3 +4,22 @@ plugins {
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
+
+/*
+ * Workaround for java-test-fixtures issue
+ * Taken from : https://github.com/gradle/gradle/issues/11845#issuecomment-572521754
+ */
+subprojects {
+    apply plugin: 'eclipse'
+    eclipse.classpath.file.whenMerged {
+        def main = entries.find { it.path == 'src/main/java' }
+        if (main) {
+            main.entryAttributes['gradle_used_by_scope'] = 'main,test'
+        }
+        def testFixtures = entries.find { it.path == 'src/testFixtures/java' }
+        if (testFixtures) {
+            testFixtures.entryAttributes['gradle_used_by_scope'] = 'test'
+        }
+    }
+}
+
