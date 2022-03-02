@@ -1,0 +1,13 @@
+plugins {
+    id "com.gradle.enterprise" version "3.5.2"
+
+    // consider using https://jmfayard.github.io/refreshVersions/
+}
+
+// don't name the root project because no code exists at the root level 
+// and Eclipse will complain
+//rootProject.name = "sri"
+
+include 'mytestbase',
+    'mylib',
+    'myapp'

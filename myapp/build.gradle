@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    // import mylib as a dependency
+    implementation project(":mylib")
+
+    // import testbase and all its exported dependencies
+    // mylib is already imported as a testFixture dependency
+    testImplementation(testFixtures(project(":mytestbase")))
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.+'
+}
+
+test {
+    useJUnitPlatform()
+}

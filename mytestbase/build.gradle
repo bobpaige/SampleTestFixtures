@@ -1,0 +1,21 @@
+plugins {
+    id 'java-library'
+    id 'java-test-fixtures'
+}
+
+dependencies {
+    // require the mylib project, and export that to any consumers of this project
+    testFixturesApi project(":mylib")
+
+    // require these libs and export them to any consumers of this project
+    testFixturesApi 'org.apache.commons:commons-lang3:3.+'
+    testFixturesApi 'com.github.javafaker:javafaker:0.+'
+
+    // requires these for implementation, but don't export; consumers will need to immport these on their own anyway
+    testFixturesApi 'org.junit.jupiter:junit-jupiter-api:5.+'
+    testFixturesImplementation 'org.junit.jupiter:junit-jupiter-engine:5.+'
+}
+
+test {
+    useJUnitPlatform()
+}
